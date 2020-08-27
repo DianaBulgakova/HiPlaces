@@ -8,13 +8,15 @@
 
 import UIKit
 
-class TextFieldCell: UITableViewCell {
+final class TextFieldCell: UITableViewCell {
+    
+    static let cellReuseIdentifier = "TextFieldCell"
     
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var textField: UITextField!
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override func awakeFromNib() {
+        super.awakeFromNib()
         
         self.selectionStyle = .none
     }

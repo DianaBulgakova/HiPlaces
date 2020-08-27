@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Realm",
+        "repositoryURL": "https://github.com/realm/realm-cocoa",
+        "state": {
+          "branch": null,
+          "revision": "b37e031434ed1e91c9254ef124fbac92b1a4c873",
+          "version": "5.3.4"
+        }
+      },
+      {
+        "package": "RealmCore",
+        "repositoryURL": "https://github.com/realm/realm-core",
+        "state": {
+          "branch": null,
+          "revision": "b0c2d353112e284011ff0c898907392a9f4f15b6",
+          "version": "6.0.18"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

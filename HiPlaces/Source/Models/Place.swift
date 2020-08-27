@@ -1,5 +1,5 @@
 //
-//  PlaceModel.swift
+//  Place.swift
 //  HiPlaces
 //
 //  Created by Диана Булгакова on 20.08.2020.
@@ -9,16 +9,23 @@
 import Foundation
 import RealmSwift
 
-class Place {
+final class Place: Object {
+    
     @objc dynamic var name = ""
     @objc dynamic var location: String?
     @objc dynamic var type: String?
     @objc dynamic var image: Data?
+    @objc dynamic var rating = 0
+    @objc dynamic var date = Date()
     
-    init(name: String, location: String?, type: String?, image: Data?) {
+    convenience init(name: String, location: String?, type: String?, image: Data?, rating: Int, date: Date) {
+        self.init()
+
         self.name = name
         self.location = location
         self.type = type
         self.image = image
+        self.rating = rating
+        self.date = date
     }
 }

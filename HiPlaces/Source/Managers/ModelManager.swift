@@ -9,3 +9,20 @@
 import Foundation
 import RealmSwift
 
+enum ModelManager {
+    
+    static let realm = try? Realm()
+    
+    static func saveObject(_ place: Place) {
+        try? realm?.write {
+            realm?.add(place)
+        }
+    }
+    
+    static func deleteObject(_ place: Place) {
+        try? realm?.write {
+            realm?.delete(place)
+        }
+    }
+}
+

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlaceCell: UITableViewCell {
+final class PlaceCell: UITableViewCell {
     
     static let cellReuseIdentifier = "PlaceCell"
     
@@ -16,12 +16,26 @@ class PlaceCell: UITableViewCell {
     @IBOutlet weak var nameOfPlace: UILabel!
     @IBOutlet weak var locationOfPlace: UILabel!
     @IBOutlet weak var typeOfPlace: UILabel!
+    @IBOutlet weak var ratingControl: RatingControl!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        ratingControl.isUserInteractionEnabled = false
+        ratingControl.starSize = CGSize(width: 30, height: 30)
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    
+    func setup(place: Place) {
+        nameOfPlace.text = place.name
+        locationOfPlace.text = place.location
+        typeOfPlace.text = place.type
+        ratingControl.rating = place.rating
+        
+        if let data = place.image,
+            let image = UIImage(data: data) {
+            imageOfPlace.image = image
+        } else {
+            imageOfPlace.image = nil
+        }
     }
 }
