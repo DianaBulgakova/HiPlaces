@@ -35,7 +35,7 @@ final class PlaceCell: UITableViewCell {
             let image = UIImage(data: data) {
             imageOfPlace.image = image
         } else {
-            imageOfPlace.image = nil
+            imageOfPlace.image = #imageLiteral(resourceName: "defaultImage")
         }
     }
 }
