@@ -33,8 +33,10 @@ final class PlaceCell: UITableViewCell {
         
         if let data = place.image,
             let image = UIImage(data: data) {
+            imageOfPlace.contentMode = .scaleAspectFill
             imageOfPlace.image = image
         } else {
+            imageOfPlace.contentMode = .scaleAspectFit
             imageOfPlace.image = #imageLiteral(resourceName: "defaultImage")
         }
     }

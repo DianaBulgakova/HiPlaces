@@ -224,10 +224,6 @@ extension PlaceDetailController: UITableViewDelegate, UITableViewDataSource {
             placeImageView.contentMode = .scaleAspectFit
         }
         
-        if placeImageView.image != #imageLiteral(resourceName: "defaultImage") {
-            image = placeImageView.image
-        }
-        
         headerView.addSubview(placeImageView)
         placeImageView.translatesAutoresizingMaskIntoConstraints = false
         placeImageView.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 10).isActive = true
@@ -249,6 +245,7 @@ extension PlaceDetailController: UIImagePickerControllerDelegate, UINavigationCo
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let image = info[.editedImage] as? UIImage else { return }
         
+        self.image = image
         placeImageView.image = image
         dismiss(animated:true, completion: nil)
     }
