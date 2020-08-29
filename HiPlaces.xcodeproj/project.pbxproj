@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		840EC6F624EEB053005A23D2 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 840EC6F524EEB053005A23D2 /* Realm */; };
-		840EC6F824EEB053005A23D2 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 840EC6F724EEB053005A23D2 /* RealmSwift */; };
+		840EC6F624EEB053005A23D2 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 840EC6F524EEB053005A23D2 /* SwiftPackageProductDependency */; };
+		840EC6F824EEB053005A23D2 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 840EC6F724EEB053005A23D2 /* SwiftPackageProductDependency */; };
 		843FBA0324F45A92005A5925 /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FBA0224F45A92005A5925 /* RatingControl.swift */; };
 		843FBA0824F54E6B005A5925 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FBA0624F54E6B005A5925 /* MapController.swift */; };
 		843FBA0924F54E6B005A5925 /* MapController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FBA0724F54E6B005A5925 /* MapController.xib */; };
@@ -27,9 +27,12 @@
 		84AF4E3124EEFEA100B3F8BA /* ModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF4E3024EEFEA100B3F8BA /* ModelManager.swift */; };
 		84CFD96124EF16DD00CA24E9 /* PlaceDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFD95F24EF16DD00CA24E9 /* PlaceDetailController.swift */; };
 		84CFD96224EF16DD00CA24E9 /* PlaceDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84CFD96024EF16DD00CA24E9 /* PlaceDetailController.xib */; };
+		BA6E2E6324C6CCBBDFDF8736 /* Pods_HiPlaces.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD5C810BB980FE882F75D568 /* Pods_HiPlaces.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		628C539A7064B1BC8F13318A /* Pods-HiPlaces.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HiPlaces.release.xcconfig"; path = "Target Support Files/Pods-HiPlaces/Pods-HiPlaces.release.xcconfig"; sourceTree = "<group>"; };
+		7CAD6D1BD8DAAAFB294FD465 /* Pods-HiPlaces.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HiPlaces.debug.xcconfig"; path = "Target Support Files/Pods-HiPlaces/Pods-HiPlaces.debug.xcconfig"; sourceTree = "<group>"; };
 		840EC6DD24EEAD5D005A23D2 /* HiPlaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HiPlaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		843FBA0224F45A92005A5925 /* RatingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
 		843FBA0624F54E6B005A5925 /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
@@ -50,6 +53,7 @@
 		84AF4E3024EEFEA100B3F8BA /* ModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelManager.swift; sourceTree = "<group>"; };
 		84CFD95F24EF16DD00CA24E9 /* PlaceDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailController.swift; sourceTree = "<group>"; };
 		84CFD96024EF16DD00CA24E9 /* PlaceDetailController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceDetailController.xib; sourceTree = "<group>"; };
+		AD5C810BB980FE882F75D568 /* Pods_HiPlaces.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HiPlaces.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,19 +61,40 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				840EC6F824EEB053005A23D2 /* RealmSwift in Frameworks */,
-				840EC6F624EEB053005A23D2 /* Realm in Frameworks */,
+				840EC6F824EEB053005A23D2 /* BuildFile in Frameworks */,
+				840EC6F624EEB053005A23D2 /* BuildFile in Frameworks */,
+				BA6E2E6324C6CCBBDFDF8736 /* Pods_HiPlaces.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		43B8B8AFCFDCC856A7960D3F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7CAD6D1BD8DAAAFB294FD465 /* Pods-HiPlaces.debug.xcconfig */,
+				628C539A7064B1BC8F13318A /* Pods-HiPlaces.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		7EE5D7402E7D5EBACD00228A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AD5C810BB980FE882F75D568 /* Pods_HiPlaces.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		840EC6D424EEAD5D005A23D2 = {
 			isa = PBXGroup;
 			children = (
 				840EC6DF24EEAD5D005A23D2 /* HiPlaces */,
 				840EC6DE24EEAD5D005A23D2 /* Products */,
+				43B8B8AFCFDCC856A7960D3F /* Pods */,
+				7EE5D7402E7D5EBACD00228A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -162,9 +187,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 840EC6F124EEAD61005A23D2 /* Build configuration list for PBXNativeTarget "HiPlaces" */;
 			buildPhases = (
+				0552BA2D073023B855871D50 /* [CP] Check Pods Manifest.lock */,
 				840EC6D924EEAD5D005A23D2 /* Sources */,
 				840EC6DA24EEAD5D005A23D2 /* Frameworks */,
 				840EC6DB24EEAD5D005A23D2 /* Resources */,
+				11D0605E1D0457E7D9BB7255 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -172,8 +199,8 @@
 			);
 			name = HiPlaces;
 			packageProductDependencies = (
-				840EC6F524EEB053005A23D2 /* Realm */,
-				840EC6F724EEB053005A23D2 /* RealmSwift */,
+				840EC6F524EEB053005A23D2 /* SwiftPackageProductDependency */,
+				840EC6F724EEB053005A23D2 /* SwiftPackageProductDependency */,
 			);
 			productName = HiPlaces;
 			productReference = 840EC6DD24EEAD5D005A23D2 /* HiPlaces.app */;
@@ -204,7 +231,7 @@
 			);
 			mainGroup = 840EC6D424EEAD5D005A23D2;
 			packageReferences = (
-				840EC6F424EEB053005A23D2 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+				840EC6F424EEB053005A23D2 /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = 840EC6DE24EEAD5D005A23D2 /* Products */;
 			projectDirPath = "";
@@ -231,6 +258,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0552BA2D073023B855871D50 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HiPlaces-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		11D0605E1D0457E7D9BB7255 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HiPlaces/Pods-HiPlaces-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HiPlaces/Pods-HiPlaces-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HiPlaces/Pods-HiPlaces-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		840EC6D924EEAD5D005A23D2 /* Sources */ = {
@@ -370,6 +439,7 @@
 		};
 		840EC6F224EEAD61005A23D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7CAD6D1BD8DAAAFB294FD465 /* Pods-HiPlaces.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -387,6 +457,7 @@
 		};
 		840EC6F324EEAD61005A23D2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 628C539A7064B1BC8F13318A /* Pods-HiPlaces.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -426,7 +497,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		840EC6F424EEB053005A23D2 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+		840EC6F424EEB053005A23D2 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-cocoa";
 			requirement = {
@@ -437,14 +508,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		840EC6F524EEB053005A23D2 /* Realm */ = {
+		840EC6F524EEB053005A23D2 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 840EC6F424EEB053005A23D2 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			package = 840EC6F424EEB053005A23D2 /* RemoteSwiftPackageReference */;
 			productName = Realm;
 		};
-		840EC6F724EEB053005A23D2 /* RealmSwift */ = {
+		840EC6F724EEB053005A23D2 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 840EC6F424EEB053005A23D2 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			package = 840EC6F424EEB053005A23D2 /* RemoteSwiftPackageReference */;
 			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
