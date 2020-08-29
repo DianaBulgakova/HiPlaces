@@ -23,7 +23,7 @@
                         </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kLA-8e-mtD">
-                        <rect key="frame" x="112" y="10" width="65.5" height="86"/>
+                        <rect key="frame" x="112" y="10" width="170" height="86"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JXe-rc-Xzu">
                                 <rect key="frame" x="0.0" y="0.0" width="45" height="23.5"/>
@@ -44,9 +44,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="170" id="tdM-Tq-Dkv"/>
+                        </constraints>
                     </stackView>
                     <stackView opaque="NO" contentMode="scaleAspectFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="h3O-B6-eJr" customClass="RatingControl" customModule="HiPlaces" customModuleProvider="target">
-                        <rect key="frame" x="182.5" y="25" width="197.5" height="56"/>
+                        <rect key="frame" x="287" y="25" width="93" height="56"/>
                     </stackView>
                 </subviews>
                 <constraints>

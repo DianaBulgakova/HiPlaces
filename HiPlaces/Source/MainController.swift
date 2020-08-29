@@ -87,7 +87,9 @@ extension MainController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PlaceCell.cellReuseIdentifier) as? PlaceCell else { return UITableViewCell() }
         
-        cell.setup(place: places[indexPath.row])
+        let place = isFiltering ? filteredPlaces[indexPath.row] : places[indexPath.row]
+        
+        cell.setup(place: place)
         
         return cell
     }

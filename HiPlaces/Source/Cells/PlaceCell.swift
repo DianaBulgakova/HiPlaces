@@ -22,7 +22,7 @@ final class PlaceCell: UITableViewCell {
         super.awakeFromNib()
         
         ratingControl.isUserInteractionEnabled = false
-        ratingControl.starSize = CGSize(width: 30, height: 30)
+        ratingControl.starSize = CGSize(width: 25, height: 25)
     }
     
     func setup(place: Place) {

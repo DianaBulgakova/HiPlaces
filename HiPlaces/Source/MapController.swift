@@ -95,6 +95,8 @@ final class MapController: UIViewController {
             directionRequest.transportType = .automobile
     
             let directions = MKDirections(request: directionRequest)
+            
+            mapView.removeOverlays(mapView.overlays)
     
             directions.calculate { [weak self] response, error in
                 guard let self = self else { return }
@@ -102,7 +104,7 @@ final class MapController: UIViewController {
                 guard let response = response else { return }
     
                 let route = response.routes[0]
-    
+                
                 self.mapView.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
     
                 let rect = route.polyline.boundingMapRect
@@ -117,6 +119,7 @@ final class MapController: UIViewController {
         
         annotation.coordinate = coordinate
         mapView.removeAnnotations(mapView.annotations)
+        mapView.removeOverlays(mapView.overlays)
         mapView.addAnnotation(annotation)
         
         setupAddress(coordinate: annotation.coordinate)
@@ -133,18 +136,12 @@ final class MapController: UIViewController {
                 let placemark = placemarks.first else { return }
             
             var addressString = ""
-            if let subLocality = placemark.subLocality {
-                addressString = addressString + subLocality + ", "
-            }
+            
             if let thoroughfare = placemark.thoroughfare {
-                addressString = addressString + thoroughfare + ", "
+                addressString = addressString + thoroughfare
             }
             if let subThoroughfare = placemark.subThoroughfare {
-                addressString = addressString + subThoroughfare + ", "
-            }
-            if !addressString.isEmpty {
-                addressString.removeLast()
-                addressString.removeLast()
+                addressString = addressString + ", " + subThoroughfare
             }
             
             self.addressLabel.text = addressString
@@ -166,6 +163,7 @@ extension MapController: CLLocationManagerDelegate {
         
         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let region = MKCoordinateRegion(center: location.coordinate, span: span)
+        
         mapView.setRegion(region, animated: true)
     }
     

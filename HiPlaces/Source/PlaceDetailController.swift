@@ -158,6 +158,15 @@ final class PlaceDetailController: UIViewController {
     
     @objc
     private func savePlace() {
+        if name == nil,
+            place?.name == nil {
+            showSaveAlert()
+            return
+        } else if (name ?? "").isEmpty {
+            showSaveAlert()
+            return
+        }
+        
         if place != nil {
             try? ModelManager.realm?.write {
                 if let name = name {
@@ -169,7 +178,13 @@ final class PlaceDetailController: UIViewController {
                 if let type = type {
                     place?.type = type
                 }
-                place?.image = image?.pngData() ?? nil
+                
+//                place?.image = place?.image ?? image?.pngData() ?? nil
+                
+                if image?.pngData() != nil {
+                    place?.image = image?.pngData()
+                }
+                
                 place?.rating = ratingStars.rating
             }
         } else if let name = name {
@@ -178,15 +193,14 @@ final class PlaceDetailController: UIViewController {
             ModelManager.saveObject(newPlace)
         }
         
-        if place?.name == nil,
-            name == nil {
-            let alert = UIAlertController(title: "Wrong format", message: "Please, wtite the name of your place", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(okAction)
-            present(alert, animated: true, completion: nil)
-        } else {
-            navigationController?.popViewController(animated: true)
-        }
+        navigationController?.popViewController(animated: true)
+    }
+    
+    private func showSaveAlert() {
+        let alert = UIAlertController(title: "Wrong format", message: "Please, wtite the name of your place", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     }
     
     @objc
@@ -224,7 +238,7 @@ extension PlaceDetailController: UITableViewDelegate, UITableViewDataSource {
         
         switch field {
         case .name:
-            cell.textField.text = place?.name
+            cell.textField.text = name ?? place?.name
         case .location:
             cell.textField.text = location ?? place?.location
         case .type:
@@ -305,4 +319,3 @@ extension PlaceDetailController: UIPickerViewDelegate, UIPickerViewDataSource {
         tableView.reloadData()
     }
 }
-
