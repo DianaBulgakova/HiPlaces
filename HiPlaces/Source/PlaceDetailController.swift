@@ -15,6 +15,8 @@ final class PlaceDetailController: UIViewController {
     
     private var place: Place?
     
+    private var pickerElements = ["Restaurant", "Bar", "Hookah", "Veranda", "Club"]
+    
     private var name: String?
     private var location: String?
     private var type: String?
@@ -65,6 +67,25 @@ final class PlaceDetailController: UIViewController {
         gesture.cancelsTouchesInView = false
         
         return gesture
+    }()
+    
+    private lazy var elementPicker: UIPickerView = {
+        let picker = UIPickerView()
+        
+        picker.delegate = self
+        
+        return picker
+    }()
+    
+    private lazy var toolBarField: UIToolbar = {
+        let toolBar = UIToolbar()
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(dismissKeyboard))
+        
+        toolBar.sizeToFit()
+        toolBar.setItems([doneButton], animated: true)
+        toolBar.isUserInteractionEnabled = true
+        
+        return toolBar
     }()
     
     convenience init(place: Place?) {
@@ -207,7 +228,9 @@ extension PlaceDetailController: UITableViewDelegate, UITableViewDataSource {
         case .location:
             cell.textField.text = location ?? place?.location
         case .type:
-            cell.textField.text = place?.type
+            cell.textField.inputView = elementPicker
+            cell.textField.inputAccessoryView = toolBarField
+            cell.textField.text = type ?? place?.type
         }
         
         return cell
@@ -262,3 +285,24 @@ extension PlaceDetailController: MapControllerDelegate {
         tableView.reloadData()
     }
 }
+
+extension PlaceDetailController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerElements.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerElements[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        type = pickerElements[row]
+        tableView.reloadData()
+    }
+}
+
