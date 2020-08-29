@@ -18,6 +18,7 @@ final class PlaceDetailController: UIViewController {
     private var name: String?
     private var location: String?
     private var type: String?
+    private var image: UIImage?
     
     private lazy var mapButton: UIButton = {
         let button = UIButton()
@@ -147,11 +148,11 @@ final class PlaceDetailController: UIViewController {
                 if let type = type {
                     place?.type = type
                 }
-                place?.image = placeImageView.image?.pngData()
+                place?.image = image?.pngData() ?? nil
                 place?.rating = ratingStars.rating
             }
         } else if let name = name {
-            let newPlace = Place(name: name, location: location, type: type, image: placeImageView.image?.pngData(), rating: ratingStars.rating, date: Date())
+            let newPlace = Place(name: name, location: location, type: type, image: image?.pngData(), rating: ratingStars.rating, date: Date())
             
             ModelManager.saveObject(newPlace)
         }
@@ -244,6 +245,7 @@ extension PlaceDetailController: UIImagePickerControllerDelegate, UINavigationCo
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let image = info[.editedImage] as? UIImage else { return }
         
+        self.image = image
         placeImageView.image = image
         dismiss(animated:true, completion: nil)
     }
