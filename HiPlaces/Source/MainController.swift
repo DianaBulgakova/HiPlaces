@@ -95,7 +95,8 @@ extension MainController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let controller = PlaceDetailController(place: places[indexPath.row])
+        let place = isFiltering ? filteredPlaces[indexPath.row] : places[indexPath.row]
+        let controller = PlaceDetailController(place: place)
         navigationController?.pushViewController(controller, animated: true)
     }
     

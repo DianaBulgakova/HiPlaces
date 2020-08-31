@@ -20,7 +20,7 @@ final class PlaceDetailController: UIViewController {
     private var name: String?
     private var location: String?
     private var type: String?
-    private var image: UIImage?
+    private var image: UIImage? 
     
     private lazy var mapButton: UIButton = {
         let button = UIButton()
@@ -158,10 +158,13 @@ final class PlaceDetailController: UIViewController {
     
     @objc
     private func savePlace() {
-        if name == nil,
-            place?.name == nil {
-            showSaveAlert()
-            return
+        if place != nil {
+            if let name = name {
+                if name.isEmpty {
+                    showSaveAlert()
+                    return
+                }
+            }
         } else if (name ?? "").isEmpty {
             showSaveAlert()
             return
@@ -178,13 +181,9 @@ final class PlaceDetailController: UIViewController {
                 if let type = type {
                     place?.type = type
                 }
-                
-//                place?.image = place?.image ?? image?.pngData() ?? nil
-                
                 if image?.pngData() != nil {
                     place?.image = image?.pngData()
                 }
-                
                 place?.rating = ratingStars.rating
             }
         } else if let name = name {
@@ -259,6 +258,10 @@ extension PlaceDetailController: UITableViewDelegate, UITableViewDataSource {
         } else {
             placeImageView.image = #imageLiteral(resourceName: "defaultImage")
             placeImageView.contentMode = .scaleAspectFit
+        }
+        
+        if image != nil {
+            placeImageView.image = image
         }
         
         headerView.addSubview(placeImageView)
