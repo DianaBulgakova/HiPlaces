@@ -86,7 +86,7 @@ final class MapController: UIViewController {
             destinationAnnotation.coordinate = location.coordinate
         }
         
-        mapView.showAnnotations([destinationAnnotation], animated: true )
+        mapView.showAnnotations([destinationAnnotation], animated: true)
         
         let directionRequest = MKDirections.Request()
         directionRequest.source = sourceMapItem
@@ -100,15 +100,30 @@ final class MapController: UIViewController {
         directions.calculate { [weak self] response, error in
             guard let self = self else { return }
             
-            guard let responseRoute = response?.routes[0] else { return }
+            guard let response = response else {
+                self.showAlert(title: "Error", message: "Direction is not available")
+                return
+            }
             
-            let route = responseRoute
+            let route = response.routes[0]
             
             self.mapView.addOverlay((route.polyline), level: .aboveRoads)
             
             let rect = route.polyline.boundingMapRect
             self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
         }
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        
+        alert.addAction(okAction)
+        let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+        alertWindow.rootViewController = UIViewController()
+        alertWindow.windowLevel = .alert + 1
+        alertWindow.makeKeyAndVisible()
+        alertWindow.rootViewController?.present(alert, animated: true)
     }
     
     @objc

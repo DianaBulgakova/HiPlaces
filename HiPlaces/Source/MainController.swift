@@ -41,8 +41,7 @@ final class MainController: UIViewController {
         
         title = "My Places"
         
-        places = ModelManager.realm?.objects(Place.self)
-        places = places?.sorted(byKeyPath: "date", ascending: true)
+        places = ModelManager.realm?.objects(Place.self).sorted(byKeyPath: "date", ascending: true)
         
         tableView.register(UINib(nibName: PlaceCell.cellReuseIdentifier, bundle: nil), forCellReuseIdentifier: PlaceCell.cellReuseIdentifier)
         tableView.tableFooterView = UIView()
@@ -96,6 +95,7 @@ extension MainController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let place = isFiltering ? filteredPlaces?[indexPath.row] : places?[indexPath.row] else { return }
+        
         let controller = PlaceDetailController(place: place)
         navigationController?.pushViewController(controller, animated: true)
     }
