@@ -68,7 +68,6 @@ final class MapController: UIViewController {
     }
     
     func showRouteOnMap(pickupCoordinate: CLLocationCoordinate2D, destinationCoordinate: CLLocationCoordinate2D) {
-        
         let sourcePlacemark = MKPlacemark(coordinate: pickupCoordinate, addressDictionary: nil)
         let destinationPlacemark = MKPlacemark(coordinate: destinationCoordinate, addressDictionary: nil)
         
