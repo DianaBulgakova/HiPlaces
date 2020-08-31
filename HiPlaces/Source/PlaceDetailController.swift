@@ -20,7 +20,7 @@ final class PlaceDetailController: UIViewController {
     private var name: String?
     private var location: String?
     private var type: String?
-    private var image: UIImage? 
+    private var image: UIImage?
     
     private lazy var mapButton: UIButton = {
         let button = UIButton()
@@ -253,15 +253,11 @@ extension PlaceDetailController: UITableViewDelegate, UITableViewDataSource {
         let headerView = UIView()
         
         if let placeImage = place?.image {
-            placeImageView.image = UIImage(data: placeImage)
+            placeImageView.image = image ?? UIImage(data: placeImage)
             placeImageView.contentMode = .scaleAspectFill
         } else {
             placeImageView.image = #imageLiteral(resourceName: "defaultImage")
             placeImageView.contentMode = .scaleAspectFit
-        }
-        
-        if image != nil {
-            placeImageView.image = image
         }
         
         headerView.addSubview(placeImageView)

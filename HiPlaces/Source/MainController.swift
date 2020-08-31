@@ -42,6 +42,7 @@ final class MainController: UIViewController {
         title = "My Places"
         
         places = ModelManager.realm?.objects(Place.self)
+        places = places?.sorted(byKeyPath: "date", ascending: true)
         
         tableView.register(UINib(nibName: PlaceCell.cellReuseIdentifier, bundle: nil), forCellReuseIdentifier: PlaceCell.cellReuseIdentifier)
         tableView.tableFooterView = UIView()
@@ -85,9 +86,8 @@ extension MainController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PlaceCell.cellReuseIdentifier) as? PlaceCell else { return UITableViewCell() }
-        
-        let place = isFiltering ? (filteredPlaces?[indexPath.row] ?? Place()) : (places?[indexPath.row] ?? Place())
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PlaceCell.cellReuseIdentifier) as? PlaceCell,
+            let place = isFiltering ? filteredPlaces?[indexPath.row] : places?[indexPath.row] else { return UITableViewCell() }
         
         cell.setup(place: place)
         
@@ -95,7 +95,7 @@ extension MainController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let place = isFiltering ? (filteredPlaces?[indexPath.row] ?? Place()) : (places?[indexPath.row] ?? Place())
+        guard let place = isFiltering ? filteredPlaces?[indexPath.row] : places?[indexPath.row] else { return }
         let controller = PlaceDetailController(place: place)
         navigationController?.pushViewController(controller, animated: true)
     }
@@ -103,7 +103,7 @@ extension MainController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let contextItem = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, _ in
             guard let self = self,
-                let place = self.places?[indexPath.row] else { return }
+                let place = self.isFiltering ? self.filteredPlaces?[indexPath.row] : self.places?[indexPath.row] else { return }
             
             ModelManager.deleteObject(place)
             tableView.deleteRows(at: [indexPath], with: .automatic)

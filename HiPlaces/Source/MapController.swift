@@ -86,7 +86,7 @@ final class MapController: UIViewController {
             destinationAnnotation.coordinate = location.coordinate
         }
         
-        mapView.showAnnotations([sourceAnnotation,destinationAnnotation], animated: true )
+        mapView.showAnnotations([destinationAnnotation], animated: true )
         
         let directionRequest = MKDirections.Request()
         directionRequest.source = sourceMapItem
@@ -100,11 +100,11 @@ final class MapController: UIViewController {
         directions.calculate { [weak self] response, error in
             guard let self = self else { return }
             
-            guard let response = response else { return }
+            guard let responseRoute = response?.routes[0] else { return }
             
-            let route = response.routes[0]
+            let route = responseRoute
             
-            self.mapView.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
+            self.mapView.addOverlay((route.polyline), level: .aboveRoads)
             
             let rect = route.polyline.boundingMapRect
             self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
