@@ -74,12 +74,6 @@ final class MapController: UIViewController {
         let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
         let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
         
-        let sourceAnnotation = MKPointAnnotation()
-        
-        if let location = sourcePlacemark.location {
-            sourceAnnotation.coordinate = location.coordinate
-        }
-        
         let destinationAnnotation = MKPointAnnotation()
         
         if let location = destinationPlacemark.location {
@@ -100,12 +94,11 @@ final class MapController: UIViewController {
         directions.calculate { [weak self] response, error in
             guard let self = self else { return }
             
-            guard let response = response else {
-                self.showAlert(title: "Error", message: "Direction is not available")
-                return
+            guard let response = response,
+                let route = response.routes.first else {
+                    self.showAlert(title: "Error", message: "Direction is not available")
+                    return
             }
-            
-            let route = response.routes[0]
             
             self.mapView.addOverlay((route.polyline), level: .aboveRoads)
             
@@ -114,16 +107,13 @@ final class MapController: UIViewController {
         }
     }
     
-    private func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
+        let okAction = UIAlertAction(title: "OK", style: .default)
         alert.addAction(okAction)
-        let alertWindow = UIWindow(frame: UIScreen.main.bounds)
-        alertWindow.rootViewController = UIViewController()
-        alertWindow.windowLevel = .alert + 1
-        alertWindow.makeKeyAndVisible()
-        alertWindow.rootViewController?.present(alert, animated: true)
+        
+        present(alert, animated: true, completion: nil)
     }
     
     @objc
