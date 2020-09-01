@@ -252,8 +252,11 @@ extension PlaceDetailController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
         
-        if let placeImage = place?.image {
-            placeImageView.image = image ?? UIImage(data: placeImage)
+        if let image = image {
+            placeImageView.image = image
+            placeImageView.contentMode = .scaleAspectFill
+        } else if let placeImage = place?.image {
+            placeImageView.image = UIImage(data: placeImage)
             placeImageView.contentMode = .scaleAspectFill
         } else {
             placeImageView.image = #imageLiteral(resourceName: "defaultImage")
@@ -279,10 +282,8 @@ extension PlaceDetailController: UIImagePickerControllerDelegate, UINavigationCo
     
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        guard let image = info[.editedImage] as? UIImage else { return }
-        
-        self.image = image
-        placeImageView.image = image
+        image = info[.editedImage] as? UIImage
+        tableView.reloadData()
         dismiss(animated:true, completion: nil)
     }
     

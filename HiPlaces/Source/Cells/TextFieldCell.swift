@@ -18,6 +18,6 @@ final class TextFieldCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.selectionStyle = .none
+        selectionStyle = .none
     }
 }
