@@ -11,8 +11,8 @@ import RealmSwift
 
 final class MainController: UIViewController {
     
-    private var places: Results<Place>!
-    private var filteredPlaces: Results<Place>!
+    private var places: Results<Place>?
+    private var filteredPlaces: Results<Place>?
     
     private lazy var searchController: UISearchController = {
         let controller = UISearchController(searchResultsController: nil)
@@ -41,7 +41,7 @@ final class MainController: UIViewController {
         
         title = "My Places"
         
-        places = ModelManager.realm?.objects(Place.self)
+        places = ModelManager.realm?.objects(Place.self).sorted(byKeyPath: "date", ascending: true)
         
         tableView.register(UINib(nibName: PlaceCell.cellReuseIdentifier, bundle: nil), forCellReuseIdentifier: PlaceCell.cellReuseIdentifier)
         tableView.tableFooterView = UIView()
@@ -69,9 +69,9 @@ final class MainController: UIViewController {
     @IBAction
     private func sortSelection(_ sender: UISegmentedControl) {
         if segmentedControl.selectedSegmentIndex == 0 {
-            places = places.sorted(byKeyPath: "name", ascending: true)
+            places = places?.sorted(byKeyPath: "date", ascending: true)
         } else {
-            places = places.sorted(byKeyPath: "date", ascending: true)
+            places = places?.sorted(byKeyPath: "name", ascending: true)
         }
         
         tableView.reloadData()
@@ -81,27 +81,31 @@ final class MainController: UIViewController {
 extension MainController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isFiltering ? filteredPlaces.count : places.count
+        return isFiltering ? (filteredPlaces?.count ?? 0) : (places?.count ?? 0)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PlaceCell.cellReuseIdentifier) as? PlaceCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PlaceCell.cellReuseIdentifier) as? PlaceCell,
+            let place = isFiltering ? filteredPlaces?[indexPath.row] : places?[indexPath.row] else { return UITableViewCell() }
         
-        cell.setup(place: places[indexPath.row])
+        cell.setup(place: place)
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let controller = PlaceDetailController(place: places[indexPath.row])
+        guard let place = isFiltering ? filteredPlaces?[indexPath.row] : places?[indexPath.row] else { return }
+        
+        let controller = PlaceDetailController(place: place)
         navigationController?.pushViewController(controller, animated: true)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let contextItem = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, _ in
-            guard let self = self else { return }
+            guard let self = self,
+                let place = self.isFiltering ? self.filteredPlaces?[indexPath.row] : self.places?[indexPath.row] else { return }
             
-            ModelManager.deleteObject(self.places[indexPath.row])
+            ModelManager.deleteObject(place)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         
@@ -120,7 +124,7 @@ extension MainController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
         
-        filteredPlaces = places.filter("name CONTAINS [c] %@ OR location CONTAINS [c] %@", text, text)
+        filteredPlaces = places?.filter("name CONTAINS [c] %@ OR location CONTAINS [c] %@", text, text)
         tableView.reloadData()
     }
 }

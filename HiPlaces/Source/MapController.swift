@@ -67,48 +67,54 @@ final class MapController: UIViewController {
         showRouteOnMap(pickupCoordinate: mapView.userLocation.coordinate, destinationCoordinate: annotation.coordinate)
     }
     
-        func showRouteOnMap(pickupCoordinate: CLLocationCoordinate2D, destinationCoordinate: CLLocationCoordinate2D) {
-    
-            let sourcePlacemark = MKPlacemark(coordinate: pickupCoordinate, addressDictionary: nil)
-            let destinationPlacemark = MKPlacemark(coordinate: destinationCoordinate, addressDictionary: nil)
-    
-            let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
-            let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
-    
-            let sourceAnnotation = MKPointAnnotation()
-    
-            if let location = sourcePlacemark.location {
-                sourceAnnotation.coordinate = location.coordinate
-            }
-    
-            let destinationAnnotation = MKPointAnnotation()
-    
-            if let location = destinationPlacemark.location {
-                destinationAnnotation.coordinate = location.coordinate
-            }
-    
-            mapView.showAnnotations([sourceAnnotation,destinationAnnotation], animated: true )
-    
-            let directionRequest = MKDirections.Request()
-            directionRequest.source = sourceMapItem
-            directionRequest.destination = destinationMapItem
-            directionRequest.transportType = .automobile
-    
-            let directions = MKDirections(request: directionRequest)
-    
-            directions.calculate { [weak self] response, error in
-                guard let self = self else { return }
-    
-                guard let response = response else { return }
-    
-                let route = response.routes[0]
-    
-                self.mapView.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
-    
-                let rect = route.polyline.boundingMapRect
-                self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
-            }
+    func showRouteOnMap(pickupCoordinate: CLLocationCoordinate2D, destinationCoordinate: CLLocationCoordinate2D) {
+        let sourcePlacemark = MKPlacemark(coordinate: pickupCoordinate, addressDictionary: nil)
+        let destinationPlacemark = MKPlacemark(coordinate: destinationCoordinate, addressDictionary: nil)
+        
+        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
+        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+        
+        let destinationAnnotation = MKPointAnnotation()
+        
+        if let location = destinationPlacemark.location {
+            destinationAnnotation.coordinate = location.coordinate
         }
+        
+        mapView.showAnnotations([destinationAnnotation], animated: true)
+        
+        let directionRequest = MKDirections.Request()
+        directionRequest.source = sourceMapItem
+        directionRequest.destination = destinationMapItem
+        directionRequest.transportType = .automobile
+        
+        let directions = MKDirections(request: directionRequest)
+        
+        mapView.removeOverlays(mapView.overlays)
+        
+        directions.calculate { [weak self] response, error in
+            guard let self = self else { return }
+            
+            guard let response = response,
+                let route = response.routes.first else {
+                    self.showAlert(title: "Error", message: "Direction is not available")
+                    return
+            }
+            
+            self.mapView.addOverlay((route.polyline), level: .aboveRoads)
+            
+            let rect = route.polyline.boundingMapRect
+            self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
+        }
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
     
     @objc
     private func handleTap(gestureRecognizer: UITapGestureRecognizer) {
@@ -117,6 +123,7 @@ final class MapController: UIViewController {
         
         annotation.coordinate = coordinate
         mapView.removeAnnotations(mapView.annotations)
+        mapView.removeOverlays(mapView.overlays)
         mapView.addAnnotation(annotation)
         
         setupAddress(coordinate: annotation.coordinate)
@@ -133,18 +140,12 @@ final class MapController: UIViewController {
                 let placemark = placemarks.first else { return }
             
             var addressString = ""
-            if let subLocality = placemark.subLocality {
-                addressString = addressString + subLocality + ", "
-            }
+            
             if let thoroughfare = placemark.thoroughfare {
-                addressString = addressString + thoroughfare + ", "
+                addressString = addressString + thoroughfare
             }
             if let subThoroughfare = placemark.subThoroughfare {
-                addressString = addressString + subThoroughfare + ", "
-            }
-            if !addressString.isEmpty {
-                addressString.removeLast()
-                addressString.removeLast()
+                addressString = addressString + ", " + subThoroughfare
             }
             
             self.addressLabel.text = addressString
@@ -166,6 +167,7 @@ extension MapController: CLLocationManagerDelegate {
         
         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let region = MKCoordinateRegion(center: location.coordinate, span: span)
+        
         mapView.setRegion(region, animated: true)
     }
     
@@ -177,11 +179,11 @@ extension MapController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
-
+        
         renderer.strokeColor = UIColor(red: 17.0/255.0, green: 147.0/255.0, blue: 255.0/255.0, alpha: 1)
-
+        
         renderer.lineWidth = 5.0
-
+        
         return renderer
     }
 }

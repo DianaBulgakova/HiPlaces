@@ -42,20 +42,28 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gyE-D0-dgo">
-                    <rect key="frame" x="15" y="802" width="92" height="30"/>
-                    <state key="normal" title="Save address"/>
+                <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="gyE-D0-dgo">
+                    <rect key="frame" x="340" y="67" width="66" height="50"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="66" id="C4U-oc-gjs"/>
+                        <constraint firstAttribute="height" constant="50" id="Vq7-Mg-4DK"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                    <state key="normal" title="Save ">
+                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium" weight="bold"/>
+                    </state>
                     <connections>
                         <action selector="saveAddressButton" destination="-1" eventType="touchUpInside" id="f5V-WA-JvT"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QK8-Og-hua">
-                    <rect key="frame" x="314" y="724" width="78" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QK8-Og-hua">
+                    <rect key="frame" x="173" y="772" width="68" height="55"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="78" id="EEq-g4-F8J"/>
-                        <constraint firstAttribute="height" constant="30" id="mRF-h1-qeT"/>
+                        <constraint firstAttribute="height" constant="55" id="NRv-bn-w5G"/>
+                        <constraint firstAttribute="width" constant="68" id="mNe-SC-TFJ"/>
                     </constraints>
-                    <state key="normal" title="Show route"/>
+                    <state key="normal" image="GetDirection"/>
                     <connections>
                         <action selector="showRouteButton" destination="-1" eventType="touchUpInside" id="zhV-uK-Nce"/>
                     </connections>
@@ -63,17 +71,17 @@
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="QK8-Og-hua" secondAttribute="trailing" constant="22" id="BAO-Zk-6sp"/>
-                <constraint firstItem="B0j-Gx-Ao7" firstAttribute="top" secondItem="QK8-Og-hua" secondAttribute="bottom" constant="48" id="C4x-I6-F7p"/>
+                <constraint firstItem="gyE-D0-dgo" firstAttribute="leading" secondItem="oFE-n5-vDH" secondAttribute="trailing" constant="-74" id="6CO-Rx-llW"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="oFE-n5-vDH" secondAttribute="trailing" id="N5z-Fj-B0f"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="gyE-D0-dgo" secondAttribute="bottom" constant="30" id="Qn6-6g-MSV"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="B0j-Gx-Ao7" secondAttribute="trailing" constant="20" id="RAK-rl-bA0"/>
                 <constraint firstItem="JKQ-mq-Fgt" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="100" id="YQk-cy-8eo"/>
+                <constraint firstItem="oFE-n5-vDH" firstAttribute="top" secondItem="gyE-D0-dgo" secondAttribute="bottom" constant="-73" id="hJz-iE-nHB"/>
                 <constraint firstItem="oFE-n5-vDH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="j8j-ba-gsY"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="B0j-Gx-Ao7" secondAttribute="bottom" constant="20" id="nWC-Wp-TC8"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="oFE-n5-vDH" secondAttribute="bottom" id="p8O-nP-LvO"/>
-                <constraint firstItem="gyE-D0-dgo" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="q0v-75-ddZ"/>
+                <constraint firstItem="QK8-Og-hua" firstAttribute="top" secondItem="oFE-n5-vDH" secondAttribute="bottom" constant="-90" id="rTj-uZ-1Ty"/>
                 <constraint firstItem="JKQ-mq-Fgt" firstAttribute="centerX" secondItem="oFE-n5-vDH" secondAttribute="centerX" id="s1s-bn-672"/>
+                <constraint firstItem="QK8-Og-hua" firstAttribute="centerX" secondItem="oFE-n5-vDH" secondAttribute="centerX" id="zSP-Jb-WKy"/>
                 <constraint firstItem="oFE-n5-vDH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="zcE-l3-zne"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
@@ -81,6 +89,7 @@
         </view>
     </objects>
     <resources>
+        <image name="GetDirection" width="50" height="50"/>
         <image name="Location" width="30" height="30"/>
     </resources>
 </document>
